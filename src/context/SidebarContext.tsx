@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { ITemplate } from "../types/template";
 
 interface SidebarContextType {
@@ -20,11 +20,14 @@ export const SidebarContextProvider = ({
   const [flow, setFlow] = useState<ITemplate[]>(lastStoredFlow ? JSON.parse(lastStoredFlow) : []);
     // console.log(flow)
   const toggleForm = (id: string) => {
-      localStorage.setItem("flow", JSON.stringify(flow));
     // const lastStoredFlow = localStorage.getItem("flow");
     // setFlow(lastStoredFlow ? JSON.parse(lastStoredFlow) : []);
     setIsVisible(id);
   };
+
+  useEffect(()=>{
+    localStorage.setItem("flow", JSON.stringify(flow));
+  },[flow])
 
   return (
     <SidebarContext.Provider value={{ isVisible, toggleForm, flow, setFlow }}>

@@ -19,7 +19,7 @@ import Scene from './Scene';
 import { useSidebarContext } from '../context/SidebarContext';
 
 const initialNodes: Node[] = [
-  { id: '1', type: 'textUpdater', data: { value: 123 }, position: { x: 250, y: 0 } },
+  { id: 'node_1', type: 'textUpdater', data: { value: 123 }, position: { x: 250, y: 0 } },
 ];
 
 const nodeTypes: NodeTypes = { textUpdater: Scene, };
@@ -36,7 +36,6 @@ const FlowDiagram: React.FC = () => {
   const handleNodeChanges = useCallback(
     (changes: any[]) => {
       setNodes((nds) => applyNodeChanges(changes, nds))
-      localStorage.setItem('nodes', JSON.stringify(nodes));
     },
     [setNodes],
   );
@@ -58,6 +57,10 @@ const FlowDiagram: React.FC = () => {
     console.log(edges)
     localStorage.setItem('edges', JSON.stringify(edges));
   },[edges])
+  useEffect(()=>{
+    console.log(edges)
+    localStorage.setItem('nodes', JSON.stringify(nodes));
+  },[nodes])
 
   const addNode = () => {
     const newNode = {
@@ -66,10 +69,7 @@ const FlowDiagram: React.FC = () => {
       position: { x: Math.random() * 100, y: Math.random() * 200 }, // Random position
       data: { label: `Node ${nodes.length + 1}` }, // Data for the node
     };
-    setNodes((nds) => {
-      localStorage.setItem('nodes', JSON.stringify(nds.concat(newNode)));
-      return nds.concat(newNode);
-    });
+    setNodes((nds) => nds.concat(newNode));
   };
 
   const handleFlowClick = (event: React.MouseEvent) => {

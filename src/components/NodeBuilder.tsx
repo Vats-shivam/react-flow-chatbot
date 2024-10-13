@@ -70,14 +70,16 @@ const NodeBuilder: React.FC = () => {
     }
 
     setActions([...actions, newAction]);
+    let newFlag=true;
     const updatedFlow: ITemplate[] = flow.map((data) => {
       if (data.id === isVisible) {
         data.content = [...actions, newAction];
+        newFlag=false;
       }
       return data;
     });
     
-    setFlow(updatedFlow);
+    setFlow(newFlag?[...flow,{id:isVisible,content:[newAction]}]:updatedFlow);
     resetForm();
   };
 
