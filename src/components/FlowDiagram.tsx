@@ -22,7 +22,7 @@ const initialNodes: Node[] = [
   { id: '1', type: 'textUpdater', data: { value: 123 }, position: { x: 250, y: 0 } },
 ];
 
-const nodeTypes: NodeTypes = { txt: Scene, };
+const nodeTypes: NodeTypes = { textUpdater: Scene, };
 
 const initialEdges: Edge[] = [];
 
