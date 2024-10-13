@@ -10,27 +10,27 @@ import {
   applyEdgeChanges, 
   Node, 
   Edge,
-  Panel, 
+  Panel,
+  Connection,
+  NodeTypes, 
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import Scene from './Scene';
-import { CustomEdge } from './customEdge';
-import { useSidebarContext } from '../context/sidebarContext';
+import { useSidebarContext } from '../context/SidebarContext';
 
 const initialNodes: Node[] = [
   { id: '1', type: 'textUpdater', data: { value: 123 }, position: { x: 250, y: 0 } },
 ];
 
-const nodeTypes = { textUpdater: Scene };
-const edgeTypes = { custom: CustomEdge }; 
+const nodeTypes: NodeTypes = { txt: Scene, };
 
 const initialEdges: Edge[] = [];
 
 const FlowDiagram: React.FC = () => {
   const storedNodes = localStorage.getItem('nodes');
   const storedEdges = localStorage.getItem('edges');
-  const [nodes, setNodes, onNodesChange] = useNodesState<Node>(storedNodes ? JSON.parse(storedNodes) : initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>(storedEdges?JSON.parse(storedEdges):initialEdges);
+  const [nodes, setNodes] = useNodesState<Node>(storedNodes ? JSON.parse(storedNodes) : initialNodes);
+  const [edges, setEdges] = useEdgesState<Edge>(storedEdges?JSON.parse(storedEdges):initialEdges);
   const { toggleForm } = useSidebarContext();
 
   const handleNodeChanges = useCallback(
@@ -47,7 +47,7 @@ const FlowDiagram: React.FC = () => {
   );
 
   const handleConnect = useCallback(
-    (connection: Edge) => {
+    (connection: Connection) => {
       
       setEdges((eds) => addEdge(connection, eds));
     },
@@ -90,7 +90,6 @@ const FlowDiagram: React.FC = () => {
         onEdgesChange={handleEdgeChanges}
         onConnect={handleConnect}
         nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
         fitView
       >
         <Background color="#2c2c2c" gap={16} />

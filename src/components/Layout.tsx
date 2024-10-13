@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import NodeBuilder from "./NodeBuilder"
-import { useSidebarContext } from "../context/sidebarContext"
+import { useSidebarContext } from "../context/SidebarContext"
 
 const Layout:React.FC<{children:ReactNode|string}> = ({children}) => {
     const {isVisible} = useSidebarContext();

@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { Handle, Position } from "@xyflow/react";
-import { useSidebarContext } from "../context/sidebarContext";
+import { useSidebarContext } from "../context/SidebarContext";
 import { ActionButton, Link, Media, Message } from "./ChatBotUi";
+import type { Node, NodeProps } from '@xyflow/react';
+ 
+type SceneNode = Node;
+ 
+type AppNode = SceneNode ;
 
-interface SceneProps {
-  data: any; // Replace 'any' with the actual type of 'data' if known
-  isConnectable: boolean;
-  selected: boolean;
-  id: string;
-}
+
 
 interface ITemplate {
   id: string;
   content: any[];
 }
 
-const Scene: React.FC<SceneProps> = ({ isConnectable, selected, id }) => {
+const Scene: React.FC<NodeProps<AppNode>> = ({ isConnectable, selected, id }) => {
   const { toggleForm, flow } = useSidebarContext();
   const template: ITemplate | undefined = flow.find((value) => value.id === id);
   const [content, setContent] = useState(template ? [...template.content] : []);

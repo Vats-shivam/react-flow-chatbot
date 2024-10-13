@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSidebarContext } from '../context/sidebarContext';
+import { useSidebarContext } from '../context/SidebarContext';
 import { Action } from '../types/action';
 import { ITemplate } from '../types/template';
 import { Button, Message, ActionButton, Media, Link } from './ChatBotUi';
